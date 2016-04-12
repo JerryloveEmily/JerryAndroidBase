@@ -19,16 +19,10 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.jerry.androidbaselibrary.BaseActivity;
-import com.jerry.androidbaselibrary.widget.quickadapter.QuickAdapter;
 import com.jerry.jerryandroidbase.R;
-import com.jerry.jerryandroidbase.consts.AppConst;
-import com.jerry.jerryandroidbase.features.MainItem;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.xys.libzxing.zxing.decode.DecodingUtils;
 import com.xys.libzxing.zxing.encoding.EncodingUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +33,7 @@ import butterknife.ButterKnife;
  */
 public class QRCodeActivity extends BaseActivity {
 
-    // 解析扫描的二维码
+    /** 解析扫描的二维码 */
     private static final int DECODE_QRCODE = 0x520;
 
     @Bind(R.id.btn_decode_qrcode)
@@ -57,8 +51,6 @@ public class QRCodeActivity extends BaseActivity {
     @Bind(R.id.ll_result)
     LinearLayout llResult;
 
-    private QuickAdapter<MainItem> mAdapter;
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_qrcode;
@@ -67,30 +59,18 @@ public class QRCodeActivity extends BaseActivity {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         initView();
-//        initData();
         initEvent();
     }
 
     private void initView() {
         ButterKnife.bind(this);
-
-    }
-
-    private void initData() {
-        List<MainItem> datas = new ArrayList<>(15);
-        for (int i = 0; i < AppConst.QRCODE_ITEM_TITLES.length; i++) {
-            String title = AppConst.QRCODE_ITEM_TITLES[i];
-            MainItem item = new MainItem(title, AppConst.QRCODE_ITEM_CLASS[i]);
-            datas.add(item);
-        }
-
-        mAdapter.addAll(datas);
     }
 
     private void initEvent() {
         btnDecodeQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 进入扫描二维码界面
                 Intent i = new Intent(QRCodeActivity.this, CaptureActivity.class);
                 startActivityForResult(i, DECODE_QRCODE);
             }
@@ -132,23 +112,16 @@ public class QRCodeActivity extends BaseActivity {
                 return false;
             }
 
+            /**
+             * 获取imageView中的bitmap
+             * @param imageView ...
+             * @return bitmap
+             */
             public Bitmap getBitmapFromImageView(ImageView imageView){
                 return ((BitmapDrawable)imageView.getDrawable()).getBitmap();
             }
 
         });
-        /*lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainItem item = mAdapter.getItem(position);
-                if (null == item) {
-                    return;
-                }
-
-                Intent i = new Intent(QRCodeActivity.this, item.getCls());
-                startActivityForResult(i, DECODE_QRCODE);
-            }
-        });*/
     }
 
     @Override
@@ -200,12 +173,5 @@ public class QRCodeActivity extends BaseActivity {
     @Override
     public void onActivityDestroyed(Activity activity) {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -44,6 +45,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
+ * 扫描二维码界面
  * This activity opens the camera and does the actual scanning on a background
  * thread. It draws a viewfinder to help the user place the barcode correctly,
  * shows feedback as the image processing is happening, and then overlays the
@@ -65,6 +67,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private RelativeLayout scanContainer;
     private RelativeLayout scanCropView;
     private ImageView scanLine;
+    private ImageView ivSplash, ivClose;
 
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
@@ -89,6 +92,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
         scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
         scanLine = (ImageView) findViewById(R.id.capture_scan_line);
+        ivSplash = (ImageView) findViewById(R.id.capture_iv_splash);
+        ivClose = (ImageView) findViewById(R.id.capture_iv_close);
 
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
@@ -96,10 +101,33 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f, Animation
                 .RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT,
                 0.9f);
-        animation.setDuration(4500);
+        animation.setDuration(2500);
         animation.setRepeatCount(-1);
         animation.setRepeatMode(Animation.RESTART);
         scanLine.startAnimation(animation);
+        initEvent();
+    }
+
+    private void initEvent() {
+        ivSplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cameraManager.isOpenFlash()) {
+                    ivSplash.setImageResource(R.drawable.ic_splash_48dp_off);
+                    cameraManager.closeFlash();
+                } else {
+                    ivSplash.setImageResource(R.drawable.ic_splash_48dp_on);
+                    cameraManager.openFlash();
+                }
+            }
+        });
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -139,6 +167,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         }
         inactivityTimer.onPause();
         beepManager.close();
+        if (cameraManager.isOpenFlash()) {
+            cameraManager.closeFlash();
+        }
         cameraManager.closeDriver();
         if (!isHasSurface) {
             scanPreview.getHolder().removeCallback(this);
@@ -183,8 +214,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     public void handleDecode(Result rawResult, Bundle bundle) {
         inactivityTimer.onActivity();
         beepManager.playBeepSoundAndVibrate();
-
-//        DecoderResult result = new DecoderResult(rawResult);
 
         Intent resultIntent = new Intent();
         bundle.putInt("width", mCropRect.width());

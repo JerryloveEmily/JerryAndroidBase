@@ -185,6 +185,24 @@ public class CameraManager {
         requestedCameraId = cameraId;
     }
 
+    public synchronized void openFlash() {
+        Camera.Parameters parameters = camera.getParameters();
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+        camera.setParameters(parameters);
+    }
+
+    public synchronized void closeFlash() {
+        Camera.Parameters parameters = camera.getParameters();
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
+        camera.setParameters(parameters);
+    }
+
+    public synchronized boolean isOpenFlash(){
+        Camera.Parameters parameters = camera.getParameters();
+        String flashMode = parameters.getFlashMode();
+        return flashMode.equals(Camera.Parameters.FLASH_MODE_TORCH);
+    }
+
     /**
      * 获取相机分辨率
      *
