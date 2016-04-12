@@ -1,1 +1,1 @@
-include ':test-library-app', ':androidbaselibrary', ':libzxing'
+include ':test-library-app', ':androidbaselibrary', ':libzxing', ':DanmakuFlameLibrary', ':danmakuflamelibrary'
