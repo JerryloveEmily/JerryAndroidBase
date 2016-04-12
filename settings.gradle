@@ -1,1 +1,1 @@
-include ':test-library-app', ':androidbaselibrary'
+include ':test-library-app', ':androidbaselibrary', ':libzxing'

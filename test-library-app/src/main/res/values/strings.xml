@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">JerryAndroidBase</string>
+    <string name="app_name">快速开发框架</string>
+    <string name="text_hint">请输入内容</string>
+    <string name="qrcode">二维码</string>
+    <string name="qrcode_decode">扫描二维码</string>
+    <string name="qrcode_encode">生成二维码</string>
+
 </resources>

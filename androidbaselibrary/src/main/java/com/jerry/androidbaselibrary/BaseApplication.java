@@ -43,7 +43,7 @@ public class BaseApplication extends Application {
 
     private void initWork() {
         // 初始化app crash捕获对象
-        initExcetionCatch();
+//        initExcetionCatch();
         // 初始化日志开关
         initLogUtils();
         // 注册网络状态监听器

@@ -1,15 +1,34 @@
 package com.jerry.jerryandroidbase.features;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.PersistableBundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jerry.androidbaselibrary.BaseActivity;
 import com.jerry.androidbaselibrary.utils.network.netstate.NetWorkUtil;
+import com.jerry.androidbaselibrary.widget.quickadapter.BaseAdapterHelper;
+import com.jerry.androidbaselibrary.widget.quickadapter.QuickAdapter;
 import com.jerry.jerryandroidbase.R;
+import com.jerry.jerryandroidbase.consts.AppConst;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
+
+    @Bind(R.id.lv_list)
+    ListView lvList;
+
+    private QuickAdapter<MainItem> mAdapter;
 
     @Override
     protected int getContentViewId() {
@@ -23,7 +42,47 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        initView();
+        initData();
+        initEvent();
+    }
 
+    private void initView() {
+        ButterKnife.bind(this);
+        initListView();
+    }
+
+    private void initListView() {
+        mAdapter = new QuickAdapter<MainItem>(this, R.layout.main_list_item) {
+            @Override
+            protected void convert(BaseAdapterHelper helper, int position, MainItem item) {
+                TextView tvTitle = helper.getView(R.id.tv_title);
+                tvTitle.setText(item.getTitle());
+            }
+        };
+        lvList.setAdapter(mAdapter);
+    }
+
+    private void initData() {
+        List<MainItem> datas = new ArrayList<>(15);
+        for (int i = 0; i < AppConst.MAIN_ITEM_TITLES.length; i++) {
+            String title = AppConst.MAIN_ITEM_TITLES[i];
+            MainItem item = new MainItem(title, AppConst.MAIN_ITEM_CLASS[i]);
+            datas.add(item);
+        }
+
+        mAdapter.addAll(datas);
+    }
+
+    private void initEvent() {
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MainItem item = mAdapter.getItem(position);
+                Intent i = new Intent(MainActivity.this, item.getCls());
+                startActivity(i);
+            }
+        });
     }
 
     @Override
