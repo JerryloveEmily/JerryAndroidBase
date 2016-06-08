@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jerry.androidbaselibrary.BaseActivity;
+import com.jerry.androidbaselibrary.utils.log.JLog;
 import com.jerry.androidbaselibrary.utils.network.netstate.NetWorkUtil;
 import com.jerry.androidbaselibrary.widget.quickadapter.BaseAdapterHelper;
 import com.jerry.androidbaselibrary.widget.quickadapter.QuickAdapter;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        JLog.d("onActivityCreated...");
         initView();
         initData();
         initEvent();
@@ -87,11 +89,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onActivityStarted(Activity activity) {
+        JLog.d("onActivityStarted...");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        JLog.d("onActivityResumed...");
     }
 
     @Override
@@ -106,12 +109,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        JLog.d("onActivityPaused...");
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-
+        JLog.d("onActivityStopped...");
     }
 
     @Override
@@ -126,6 +129,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
+        JLog.d("onActivityDestroyed...");
     }
 }

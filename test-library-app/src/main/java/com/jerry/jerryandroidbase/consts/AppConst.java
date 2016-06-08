@@ -1,5 +1,6 @@
 package com.jerry.jerryandroidbase.consts;
 
+import com.jerry.jerryandroidbase.features.progress.ProgressActivity;
 import com.jerry.jerryandroidbase.features.qrcode.QRCodeActivity;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
@@ -11,11 +12,13 @@ public class AppConst {
 
     /**************************主页开始***************************/
     public static final String[] MAIN_ITEM_TITLES = {
-            "ZXing二维码扫描"
+            "ZXing二维码扫描",
+            "进度条"
     };
 
     public static final Class<?>[] MAIN_ITEM_CLASS = {
-            QRCodeActivity.class
+            QRCodeActivity.class,
+            ProgressActivity.class
     };
     /**************************主页结束***************************/
 

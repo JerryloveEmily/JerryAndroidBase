@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context="com.jerry.jerryandroidbase.features.progress.ProgressActivity">
+
+    <com.jerry.androidbaselibrary.widget.view.JProgressBar
+        android:id="@+id/jpb_progress"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
+
+</LinearLayout>

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.jerry.androidbaselibrary.BaseActivity;
+import com.jerry.androidbaselibrary.utils.log.JLog;
 import com.jerry.jerryandroidbase.R;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.xys.libzxing.zxing.decode.DecodingUtils;
@@ -58,6 +59,7 @@ public class QRCodeActivity extends BaseActivity {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        JLog.d("onActivityCreated...");
         initView();
         initEvent();
     }
@@ -126,22 +128,22 @@ public class QRCodeActivity extends BaseActivity {
 
     @Override
     public void onActivityStarted(Activity activity) {
-
+        JLog.d("onActivityStarted...");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        JLog.d("onActivityResumed...");
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        JLog.d("onActivityPaused...");
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-
+        JLog.d("onActivityStopped...");
     }
 
     @Override
@@ -172,6 +174,6 @@ public class QRCodeActivity extends BaseActivity {
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
+        JLog.d("onActivityDestroyed...");
     }
 }

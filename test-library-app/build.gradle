@@ -11,11 +11,38 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        config {
+            keyAlias 'jerrybase'
+            keyPassword 'jerrybase@_644218908'
+            storeFile file('E:/project/AndroidStudioProjects/JerryAndroidBase/publish/sign/jerrybase.jks')
+            storePassword 'jerrybase@_644218908'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+
+    // 多渠道打包
+    productFlavors{
+        xiaomi{}
+        baidu{}
+        qihu360{}
+        wandoujia
+        yingyongbao{}
+    }
+
+    productFlavors.all{
+        flavor->flavor.manifestPlaceholders=[UMENG_CHANNEL_VALUE:name]
     }
 }
 
