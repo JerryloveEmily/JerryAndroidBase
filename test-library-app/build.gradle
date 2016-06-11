@@ -14,10 +14,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'jerrybase'
-            keyPassword 'jerrybase@_644218908'
-            storeFile file('E:/project/AndroidStudioProjects/JerryAndroidBase/publish/sign/jerrybase.jks')
-            storePassword 'jerrybase@_644218908'
+//            keyAlias 'jerrybase'
+//            keyPassword 'jerrybase@_644218908'
+//            storeFile file('E:/project/AndroidStudioProjects/JerryAndroidBase/publish/sign/jerrybase.jks')
+//            storePassword 'jerrybase@_644218908'
         }
     }
 

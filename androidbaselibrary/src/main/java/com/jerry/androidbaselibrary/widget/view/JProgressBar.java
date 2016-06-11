@@ -17,6 +17,7 @@ public class JProgressBar extends View {
 
     private Paint mPaint;
     private int mRadius;
+    private float mProgress;
     private RectF mRect;
 
     public JProgressBar(Context context) {
@@ -55,6 +56,6 @@ public class JProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawArc(mRect, 0, 230f, false, mPaint);
+        canvas.drawArc(mRect, 0, mProgress, false, mPaint);
     }
 }
